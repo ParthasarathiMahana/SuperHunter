@@ -64,6 +64,7 @@ const myfavPage = document.getElementById("my-favs");
 myfavPage.addEventListener("click", reload);
 function reload()
 {
+    document.getElementById("result-container3").style.display = "none";
     var res = JSON.parse(request.response);
 
     var search_div = document.getElementById("content");
