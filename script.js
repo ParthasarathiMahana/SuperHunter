@@ -21,6 +21,10 @@ function showRes1()
         {
             var img_div = document.createElement("div");
             // img_div.style.border = "1px solid white";
+            var icon_div = document.createElement("div");
+            icon_div.classList.add("fav-icon");
+            icon_div.innerHTML = '❤️';
+            img_div.append(icon_div);
             
             img_div.classList.add("image-box");
             img_div.style.height = 15+"rem";

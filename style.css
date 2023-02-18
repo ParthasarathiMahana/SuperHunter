@@ -98,12 +98,25 @@ footer a{
     margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 .image-box{
     height: 5rem;
     width: 5rem;
     margin-bottom: 1rem;
+    /* position: absolute; */
+}
+.fav-icon{
+    position: relative;
+    height: 1rem;
+    width: 1rem;
+    /* z-index: 9; */
+    left: 14rem;
+    top: 1.5rem;
+    font-size: larger;
+}
+.fav-icon:hover{
+    cursor: pointer;
 }
 #name{
     width: 5rem;
