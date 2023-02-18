@@ -126,6 +126,8 @@ home.addEventListener("click", function(){
     document.getElementById("result-container").style.display = "flex";
     document.getElementById("content").style.display = "flex";
     document.getElementById("result-container2").style.display = "none";
+    document.getElementById("result-container3").style.display = "none";
+
 });
 
 // function details_frame()
@@ -138,6 +140,7 @@ allSuperheros.addEventListener("click", function(){
     document.getElementById("result-container").style.display = "none";
     document.getElementById("content").style.display = "none";
     document.getElementById("result-container2").style.display = "none";
+
 
     var response = JSON.parse(request.response);
 
@@ -172,24 +175,33 @@ allSuperheros.addEventListener("click", function(){
 
         var name = document.createElement("div");
         name.style.width = 100+"%";
-        name.style.height = 10+"%";
         name.style.color="black";
         name.style.fontWeight=700;
-        name.style.fontSize=2+"rem";
+        name.style.fontSize=1.5+"rem";
         name.style.marginLeft = 1+"rem";
 
         name.innerHTML = "Name: "+response.data.results[i].name;
         text_details.append(name);
 
-        // var description = document.createElement("div");
-        // description.style.width = 100+"%";
-        // description.style.height = 30+"%";
-        // description.style.color="black";
-        // description.style.fontSize=5+"px";
-        // description.style.marginLeft = 1+"rem";
+        let description = document.createElement("div");
+        description.style.width = 98+"%";
+        description.style.height = 40+"%";
+        description.style.color="black";
+        description.style.fontSize=1+"rem";
+        description.style.marginLeft = 1+"rem";
 
-        // name.innerHTML = "Description: "+response.data.results[i].description;
-        // text_details.append(description);
+        description.innerHTML = "<h4>Description: </h4>"+response.data.results[i].description;
+        text_details.append(description);
+
+        let comics = document.createElement("div");
+        comics.style.width = 98+"%";
+        comics.style.height = 10+"%";
+        comics.style.color="black";
+        comics.style.fontSize=1+"rem";
+        comics.style.marginLeft = 1+"rem";
+
+        comics.innerHTML = "<h4>Comic Link: </h4>"+response.data.results[i].urls[1].url;
+        text_details.append(comics);
 
         detailes_container.append(text_details);
 
