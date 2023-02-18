@@ -1,4 +1,5 @@
 var searchBtn = document.getElementById("icon");
+var search_name = document.getElementById("search-superhero");
 searchBtn.addEventListener("click", showRes);
 
 var favs =[];
@@ -9,7 +10,55 @@ request.send();
 
 function showRes()
 {
-    
+    console.log(search_name.value);
+    var res1 = JSON.parse(request.response);
+    for(let i=0; i<res1.data.results.length; i++)
+    {
+        if(res1.data.results[i].name == search_name.value)
+        {
+            var del = document.getElementsByClassName("image-box");
+            document.getElementById("result-container").style.display = "none";
+
+            var img_div = document.createElement("div");
+            // img_div.style.border = "1px solid white";
+            var icon_div = document.createElement("div");
+            icon_div.classList.add("fav-icon");
+            icon_div.innerHTML = '❤️';
+            img_div.append(icon_div);
+
+            icon_div.addEventListener("click", function(){
+                var element = {
+                    id: res1.data.results[i].id,
+                    display: false
+                };
+                favs.push(element);
+            });
+            
+            img_div.classList.add("image-box");
+            img_div.style.height = 15+"rem";
+            img_div.style.width = 16+"rem";
+            var image = document.createElement("img");
+            image.src = res1.data.results[i].thumbnail.path+'.'+'jpg';
+            image.style.height = 90+"%";
+            image.style.width = 100+"%";
+            img_div.append(image);
+
+            var name_div = document.createElement("div");
+            name_div.style.width = 100+"%";
+            name_div.style.height = 10+"%";
+            name_div.style.textAlign = "center";
+            name_div.innerHTML = res1.data.results[i].name;
+            name_div.style.fontWeight = 700;
+            document.getElementById("result-container4").append(img_div);
+            img_div.append(name_div);
+            document.getElementById("result-container4").style.display = "flex";
+            return;
+        }
+        if(i == res1.data.results.length-1)
+        {
+            alert("Either you are searching a wrong name, or it is not available");
+        }
+    }
 }
 function showRes1(num)
 {
