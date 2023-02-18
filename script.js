@@ -30,8 +30,11 @@ function showRes1(num)
             img_div.append(icon_div);
 
             icon_div.addEventListener("click", function(){
-                var id =responseJSON.data.results[i].id;
-                favs.push(id);
+                var element = {
+                    id: responseJSON.data.results[i].id,
+                    display: false
+                };
+                favs.push(element);
             });
             
             img_div.classList.add("image-box");
@@ -58,7 +61,8 @@ function showRes1(num)
 showRes1();
 
 const myfavPage = document.getElementById("my-favs");
-myfavPage.addEventListener("click", function()
+myfavPage.addEventListener("click", reload);
+function reload()
 {
     var res = JSON.parse(request.response);
 
@@ -73,11 +77,11 @@ myfavPage.addEventListener("click", function()
     result_container2.style.justifyContent = "center";
     result_container2.style.alignItems = "center";
 
-    for(var i=0; i<res.data.results.length; i++)
+    for(let i=0; i<res.data.results.length; i++)
     {
-        for(var j=0; j<favs.length; j++)
+        for(let j=0; j<favs.length; j++)
         {
-            if(res.data.results[i].id == favs[j])
+            if(res.data.results[i].id == favs[j].id)
             {
                 var img_div = document.createElement("div");
                 // img_div.style.border = "1px solid white";
@@ -86,14 +90,11 @@ myfavPage.addEventListener("click", function()
                 icon_div.innerHTML = '❤️';
                 img_div.append(icon_div);
 
-                icon_div.addEventListener("click", function(){
-                    var id =res.data.results[i].id;
-                });
-                
                 img_div.classList.add("image-box");
                 img_div.style.height = 15+"rem";
                 img_div.style.width = 16+"rem";
                 img_div.style.marginRight = 1+"rem";
+                img_div.id = favs[j].id;
                 var image = document.createElement("img");
                 image.src = res.data.results[i].thumbnail.path+'.'+'jpg';
                 image.style.height = 90+"%";
@@ -106,9 +107,23 @@ myfavPage.addEventListener("click", function()
                 name_div.style.textAlign = "center";
                 name_div.innerHTML = res.data.results[i].name;
                 name_div.style.fontWeight = 700;
-                document.getElementById("result-container2").append(img_div);
+                if(favs[j].display == false){
+                    document.getElementById("result-container2").append(img_div);
+                    favs[j].display = true;
+                }
                 img_div.append(name_div);
+
+                icon_div.addEventListener("click", function(){
+                    document.getElementById(favs[j].id).remove();
+                    favs.pop(favs[j]);
+                });
             }
         }
     }
-});
+}
+var home = document.getElementById("home");
+home.addEventListener("click", function(){
+    document.getElementById("result-container").style.display = "flex";
+    document.getElementById("content").style.display = "flex";
+    document.getElementById("result-container2").style.display = "none";
+})
