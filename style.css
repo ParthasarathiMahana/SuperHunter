@@ -85,11 +85,10 @@ input:hover{
     cursor: pointer;
 }
 footer{
-    position: relative;
-    /* top: 21rem; */
+    background-color: antiquewhite;
 }
 footer a{
-    color: white;
+    color: black;
     text-decoration: none;
     margin-left: 30rem;
     font-size: larger;
