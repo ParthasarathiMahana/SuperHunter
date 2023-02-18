@@ -126,4 +126,77 @@ home.addEventListener("click", function(){
     document.getElementById("result-container").style.display = "flex";
     document.getElementById("content").style.display = "flex";
     document.getElementById("result-container2").style.display = "none";
-})
+});
+
+// function details_frame()
+// {
+    
+// }
+
+var allSuperheros = document.getElementById("AllSuperHeros");
+allSuperheros.addEventListener("click", function(){
+    document.getElementById("result-container").style.display = "none";
+    document.getElementById("content").style.display = "none";
+    document.getElementById("result-container2").style.display = "none";
+
+    var response = JSON.parse(request.response);
+
+    for(let i=0; i<response.data.results.length; i++)
+    {
+        var response = JSON.parse(request.response);
+
+        var detailes_container = document.createElement("div");
+        detailes_container.style.width = 70+"rem";
+        detailes_container.style.height = 20+'rem';
+        detailes_container.style.backgroundColor = "white";
+        detailes_container.style.marginBottom = 1+"rem";
+        detailes_container.style.display = "flex";
+
+        var img_part = document.createElement("div");
+        img_part.style.width = 35+"%";
+        img_part.style.height = 100+"%";
+        detailes_container.append(img_part);
+
+        var img_details = document.createElement("img");
+        img_details.src = response.data.results[i].thumbnail.path+'.'+response.data.results[i].thumbnail.extension
+        img_part.append(img_details);
+        img_details.style.width = 100+"%";
+        img_details.style.height = 100+"%";
+
+        var text_details = document.createElement("div");
+        text_details.style.width = 65+"%";
+        text_details.style.height = 100+"%";
+        // text_details.style.border = "1px solid red"
+        text_details.style.display = "flex";
+        text_details.style.flexDirection = "column";
+
+        var name = document.createElement("div");
+        name.style.width = 100+"%";
+        name.style.height = 10+"%";
+        name.style.color="black";
+        name.style.fontWeight=700;
+        name.style.fontSize=2+"rem";
+        name.style.marginLeft = 1+"rem";
+
+        name.innerHTML = "Name: "+response.data.results[i].name;
+        text_details.append(name);
+
+        // var description = document.createElement("div");
+        // description.style.width = 100+"%";
+        // description.style.height = 30+"%";
+        // description.style.color="black";
+        // description.style.fontSize=5+"px";
+        // description.style.marginLeft = 1+"rem";
+
+        // name.innerHTML = "Description: "+response.data.results[i].description;
+        // text_details.append(description);
+
+        detailes_container.append(text_details);
+
+        var conatiner3 = document.getElementById("result-container3");
+        conatiner3.style.display = "flex";
+        conatiner3.append(detailes_container);
+
+    }
+});
+
