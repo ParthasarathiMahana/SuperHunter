@@ -131,3 +131,17 @@ footer a{
     flex-direction: column;
     align-items: center;
 }
+
+#result-container5{
+    display: none;
+}
+#recom{
+    position: relative;
+    z-index: 9;
+    background-color: grey;
+    color: black;
+}
+#recom li{
+    margin-top : 1.5rem;
+    height: 1.5rem;
+}
