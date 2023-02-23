@@ -2,19 +2,21 @@ var searchBtn = document.getElementById("icon");
 var search_name = document.getElementById("search-superhero");
 searchBtn.addEventListener("click", showRes);
 
-var favs =[];
+var names = [];
+var favs = [];
 
 var request = new XMLHttpRequest();
 request.open('get','https://gateway.marvel.com/v1/public/characters?ts=1&apikey=857b6f8da8acbb134cd01372d3a37317&hash=8d5b1d4072cc9d93c562de8999fcd160');
 request.send();
 
+// To search result in the search bar
 function showRes()
 {
     console.log(search_name.value);
     var res1 = JSON.parse(request.response);
     for(let i=0; i<res1.data.results.length; i++)
     {
-        if(res1.data.results[i].name == search_name.value)
+        if(res1.data.results[i].name.toLowerCase() == search_name.value.toLowerCase())
         {
             var del = document.getElementsByClassName("image-box");
             document.getElementById("result-container").style.display = "none";
@@ -60,6 +62,8 @@ function showRes()
         }
     }
 }
+
+// To show the name and image of first 10 superhero on the home page.
 function showRes1(num)
 {
     num=10;
@@ -100,6 +104,7 @@ function showRes1(num)
             name_div.style.height = 10+"%";
             name_div.style.textAlign = "center";
             name_div.innerHTML = responseJSON.data.results[i].name;
+            names.push(responseJSON.data.results[i].name);
             name_div.style.fontWeight = 700;
             document.getElementById("result-container").append(img_div);
             img_div.append(name_div);
@@ -109,6 +114,7 @@ function showRes1(num)
 }
 showRes1();
 
+// favourites page
 const myfavPage = document.getElementById("my-favs");
 myfavPage.addEventListener("click", reload);
 function reload()
@@ -180,11 +186,7 @@ home.addEventListener("click", function(){
 
 });
 
-// function details_frame()
-// {
-    
-// }
-
+// result for all superhero
 var allSuperheros = document.getElementById("AllSuperHeros");
 allSuperheros.addEventListener("click", function(){
     document.getElementById("result-container").style.display = "none";
