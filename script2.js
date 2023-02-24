@@ -2,6 +2,7 @@
 var search_div = document.getElementById("content");
 var searchButton = document.getElementById("icon");
 var searchBox = document.getElementById("search-superhero");
+var list = document.getElementById("recom");
 
 // Fetching All Navigation options
 var homeNav = document.getElementById("home");
@@ -320,7 +321,7 @@ searchBox.addEventListener("input", function (event) {
         function ifMatch(nameX) {
             return nameX.toLowerCase().includes(event.target.value);
         }
-        availableNames = availableNames.map(nameX => `<li class="recom_list", id=${nameX}>${nameX}</li>`);
+        availableNames = availableNames.map(nameX => `<li class="recom_list", id=${nameX.replace(/ +/g, "")}>${nameX}</li>`);
     }
     showArr(availableNames);
 });
@@ -332,5 +333,32 @@ function showArr(availableNames) {
     else {
         html = availableNames.join('');
     }
-    document.getElementById('recom').innerHTML = html;
+    list.innerHTML = html;
 }
+
+window.setInterval(function(){
+    if(list.innerHTML.includes("li"))
+    {
+        var litem = list.getElementsByTagName("li");
+        var value = Object.values(litem);
+        for(let i = 0; i<value.length; i++)
+        {
+            // console.log(value[i]);
+            value[i].addEventListener("click", function(){
+                searchBox.value = value[i].innerHTML;
+            });
+        }
+    }
+}, 500);
+
+searchButton.addEventListener("click", function(){
+    var searchVal = searchBox.value;
+    var res1 = JSON.parse(request.response);
+    for(let i=0; i<res1.data.results.length; i++)
+    {
+        if(searchVal == res1.data.results[i].name)
+        {
+            showDetailesEach(i);
+        }
+    }
+});
